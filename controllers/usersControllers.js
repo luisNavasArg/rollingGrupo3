@@ -3,7 +3,7 @@ const Usuario = require('../models/usuarios')
 const bcrypt = require('bcrypt')
 
 const index = async (req = request, res = response) => {
-    const { desde = 0, limite = 5 } = req.query
+    const { desde = 0, limite = 10 } = req.query
     const sentencia = { activo: true }
     // let usuarios = await Usuario.find()
     const [total, urs] = await Promise.all([
@@ -50,7 +50,7 @@ const del = async (req = request, res = response) => {
 }
 const activeUser = async (req = request, res = response) => {
     const { id } = req.params
-    const urs = await Usuario.findOne({ _id: id })
+    const urs = await Usuario.findOne({ _id: id })  
     if (!urs.activo) {
         const usuario = await Usuario.findByIdAndUpdate(id, { activo: true }, { new: true })
         res.status(201).json({ usuario: usuario, msg: "Usuario actualizado con exito!" })
