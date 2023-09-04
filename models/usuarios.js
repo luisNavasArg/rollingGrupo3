@@ -2,7 +2,7 @@
 admin, firstName, lastName, email, password
 */
 
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require('mongoose') 
 const UsuarioSchema = Schema({
     firstName: {
         type: String,

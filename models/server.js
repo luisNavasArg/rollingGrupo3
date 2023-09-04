@@ -7,7 +7,7 @@ class Server {
         this.app = express()
         this.port = 8081 || process.env.PORT;
         this.usuarios_path = "/api/users"
-        this.products_path = "/api/products"
+        this.products_path = "/api/products" 
         this.auth_path = "/api/auth"
         this.conectDb()
         this.middlewares()

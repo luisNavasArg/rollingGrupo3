@@ -1,6 +1,7 @@
 const { request, response } = require('express')
 const Usuario = require('../models/usuarios')
 const bcrypt = require('bcrypt')
+const {esAdmin} = require('../helpers/db-validator')
 
 const index = async (req = request, res = response) => {
     const { desde = 0, limite = 10 } = req.query
@@ -28,15 +29,19 @@ const update = async (req = request, res = response) => {
     res.status(201).json({ usuario: usuario, msg: "Usuario actualizado con exito!" })
 }
 const create = async (req = request, res = response) => {
-    const { firstName, lastName, email, password } = req.body;
-    let passEncrip = bcrypt.hashSync(password, 12)
-    const newUser = new Usuario({ firstName, lastName, email, password: passEncrip })
-    try {
-        await newUser.save()
-        return res.status(200).json({ msg: "Usuario creado con exito!" })
-    } catch (error) {
-        return res.json({ error })
-    }
+    const id = req.body.id
+    esAdmin(id)
+    // const { firstName, lastName, email, password } = req.body;
+    // let passEncrip = bcrypt.hashSync(password, 12)
+    // const newUser = new Usuario({ firstName, lastName, email, password: passEncrip })
+    // try {
+    //     await newUser.save()
+    //     return res.status(200).json({ msg: "Usuario creado con exito!" })
+    // } catch (error) {
+    //     return res.json({ error })
+    // }
+    res.send(esAdmin(id))
+
 }
 const del = async (req = request, res = response) => {
     const { id } = req.params
