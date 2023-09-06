@@ -8,5 +8,5 @@ router.put("/updateProduct/:id", productController.update)
 router.post("/createProducts/", productController.create)
 router.delete("/deleteProduct/:id", productController.delete)
 
- 
+
 module.exports = router
